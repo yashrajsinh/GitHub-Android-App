@@ -1,5 +1,13 @@
 package com.yashrajsinh.gitprofile.model
 
+/*
+Simple model class to show data
+Avatar
+Name
+Description
+Follower count, i.e. X followers
+Following count, i.e. X following
+ */
 data class MDetailsUserResponse(
     val login: String,
     val id: Int,
@@ -11,10 +19,3 @@ data class MDetailsUserResponse(
     val following: Int,
     val followers: Int
 )
-/*
-Avatar
-Name
-Description
-Follower count, i.e. X followers
-Following count, i.e. X following
- */

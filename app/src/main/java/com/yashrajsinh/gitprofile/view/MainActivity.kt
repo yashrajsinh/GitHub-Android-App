@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
 
         adapter = UserAdapter()
         adapter.notifyDataSetChanged()
-
+        //On Click for search
         adapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback {
             override fun onItemClicked(data: MUser) {
                 Intent(this@MainActivity, DetailUserActivity::class.java).also {
@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity() {
                     startActivity(it)
                 }
             }
-
         })
 
         viewModel = ViewModelProvider(
@@ -51,6 +50,7 @@ class MainActivity : AppCompatActivity() {
             btnSearch.setOnClickListener {
                 searchUser()
             }
+            //Search query
             etQuery.setOnKeyListener { v, keyCode, event ->
                 if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
                     //Command
@@ -60,14 +60,15 @@ class MainActivity : AppCompatActivity() {
                 return@setOnKeyListener false
             }
         }
-        viewModel.getSearchUsers().observe(this, {
+        //Getting the search user
+        viewModel.getSearchUsers().observe(this) {
             if (it != null) {
                 adapter.setList(it)
                 showLoading(false)
             }
-        })
+        }
     }
-
+    //Fun to search user
     private fun searchUser() {
         binding.apply {
             val query = etQuery.text.toString()
@@ -76,7 +77,7 @@ class MainActivity : AppCompatActivity() {
             viewModel.setSearchUsers(query)
         }
     }
-
+    //Progress bar to show loading
     private fun showLoading(state: Boolean) {
         if (state) {
             binding.progressBar.visibility = View.VISIBLE

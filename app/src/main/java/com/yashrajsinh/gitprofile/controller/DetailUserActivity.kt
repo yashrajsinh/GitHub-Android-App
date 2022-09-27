@@ -8,12 +8,12 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.yashrajsinh.gitprofile.DetailUserViewModel
 import com.yashrajsinh.gitprofile.databinding.ActivityDetailUserBinding
 import com.yashrajsinh.gitprofile.databinding.ActivityMainBinding
-
+//Activity to show User details
 class DetailUserActivity : AppCompatActivity() {
     companion object {
         const val EXTRA_USERNAME = "extra_username"
     }
-
+    //vars for binding
     private lateinit var binding: ActivityDetailUserBinding
     private lateinit var viewModel: DetailUserViewModel
 
@@ -21,8 +21,10 @@ class DetailUserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityDetailUserBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        //Getting user name from another activity
         val username = intent.getStringExtra(EXTRA_USERNAME)
+        val bundle = Bundle()
+        bundle.putString(EXTRA_USERNAME,username)
 
         viewModel = ViewModelProvider(
             this,
@@ -31,7 +33,8 @@ class DetailUserActivity : AppCompatActivity() {
         if (username != null) {
             viewModel.setUserDetail(username)
         }
-        viewModel.getUserDetails().observe(this, {
+            //Model to show data on UI widgets
+        viewModel.getUserDetails().observe(this) {
             if (it != null) {
                 binding.apply {
                     tvName.text = it.name
@@ -46,8 +49,9 @@ class DetailUserActivity : AppCompatActivity() {
                         .into(imgProfile)
                 }
             }
-        })
-        val sectionPagerAdpater = SectionPagerAdapter(this, supportFragmentManager)
+        }
+        //Pager to show users deatils
+        val sectionPagerAdpater = SectionPagerAdapter(this, supportFragmentManager,bundle)
         binding.apply {
             viewPager.adapter = sectionPagerAdpater
             tabs.setupWithViewPager(viewPager)

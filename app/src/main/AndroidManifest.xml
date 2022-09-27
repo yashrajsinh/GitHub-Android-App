@@ -16,6 +16,9 @@
         android:theme="@style/Theme.GitProfile"
         tools:targetApi="31">
         <activity
+            android:name=".MoreUserActivity"
+            android:exported="false" />
+        <activity
             android:name=".controller.DetailUserActivity"
             android:exported="false" />
         <activity

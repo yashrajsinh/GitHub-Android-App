@@ -38,7 +38,6 @@ class UserAdapter : RecyclerView.Adapter<UserAdapter.UserViewHolder>() {
                     .into(imgUser)
                 tvUsername.text = user.login
             }
-
         }
     }
 
